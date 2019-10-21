@@ -1,14 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import layout1 from "../views/layout1.vue";
+import website from "../views/website.vue";
+import signin from "../views/signin.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "layout1",
-    component: layout1
+    name: "website",
+    component: website
+  },
+  {
+    path: "/signin",
+    name: "signin",
+    component: signin
   },
   {
     path: "/layout2",
