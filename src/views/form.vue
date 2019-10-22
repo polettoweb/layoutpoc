@@ -1,5 +1,3 @@
 <template>
-  <div class="layout2">
-    <h1>FORM</h1>
-  </div>
+  <img src="@/assets/form.svg" />
 </template>

@@ -15,7 +15,7 @@
       <v-menu v-model="menu" :close-on-content-click="false" :nudge-bottom="50" offset-y>
         <template v-slot:activator="{ on }">
           <div v-show="$route.path !== '/signin'" class="ml-4 mr-2 profile-image" v-on="on">
-            <span>R</span>
+            <span>J</span>
           </div>
         </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <p>CONTACTS</p>
+  <img src="@/assets/contacts.svg" alt />
 </template>
 
 <script>
