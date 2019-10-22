@@ -66,7 +66,7 @@
     </v-app-bar>
     <div class="progress--bar d-flex align-center">
       <v-progress-linear color="#4fbf9f" v-model="progress"></v-progress-linear>
-      <router-link to="/eventlaunched">
+      <router-link :to="$route.path == '/contacts' ? '/eventlaunched' : ''">
         <v-img src="@/assets/launch.png"></v-img>
       </router-link>
     </div>
