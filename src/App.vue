@@ -62,7 +62,13 @@
     </v-app-bar>
     <v-content>
       <v-container class="fill-height" fluid>
-        <router-view />
+        <transition
+          name="scrollY"
+          enter-active-class="animated slideInUp"
+          leave-active-class="animated slideOutUp"
+        >
+          <router-view />
+        </transition>
       </v-container>
     </v-content>
   </v-app>
@@ -113,4 +119,25 @@ export default {
   cursor: pointer;
   color: white;
 }
+
+.page {
+  position: fixed;
+  width: inherit;
+}
+// .scrollY {
+//   transform: translateY(100%);
+// }
+
+// .scrollY-enter-active,
+// .scrollY-leave-ative {
+//   transition-property: all;
+//   transition-duration: 1s;
+//   transform: translateY(-100%);
+// }
+
+// .scrollY-enter,
+// .scrollY-leave-active {
+//   opacity: 0;
+//   transform: translateY(0);
+// }
 </style>

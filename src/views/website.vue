@@ -10,7 +10,7 @@ export default {
 };
 </script>
 <style scoped>
-.img {
+img {
   display: block;
   width: 100%;
   max-width: 1440px;
