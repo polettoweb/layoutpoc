@@ -62,11 +62,7 @@
     </v-app-bar>
     <v-content>
       <v-container class="fill-height" fluid>
-        <transition
-          name="scrollY"
-          enter-active-class="animated slideInUp"
-          leave-active-class="animated slideOutUp"
-        >
+        <transition name="scrollY">
           <router-view />
         </transition>
       </v-container>
@@ -140,4 +136,34 @@ export default {
 //   opacity: 0;
 //   transform: translateY(0);
 // }
+
+.scrollY-enter-active {
+  animation: coming 1s;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+.scrollY-leave-active {
+  animation: going 1s;
+}
+
+@keyframes going {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+@keyframes coming {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 </style>
