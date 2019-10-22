@@ -34,6 +34,14 @@ const routes = [
     name: "contacts",
     component: () =>
       import(/* webpackChunkName: "contacts" */ "../views/contacts.vue")
+  },
+  {
+    path: "/eventlaunched",
+    name: "eventlaunched",
+    component: () =>
+      import(
+        /* webpackChunkName: "eventlaunched" */ "../views/eventlaunched.vue"
+      )
   }
 ];
 

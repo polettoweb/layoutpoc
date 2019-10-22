@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Drawer v-if="$route.path !== '/signin'" />
+    <Drawer v-if="$route.path !== '/signin' && $route.path !== '/eventlaunched'" />
     <v-app-bar app clipped-left color="accent">
       <v-toolbar-title class="headline text-uppercase">
         <router-link tag="span" to="/" class="main-logo">
@@ -14,7 +14,11 @@
 
       <v-menu v-model="menu" :close-on-content-click="false" :nudge-bottom="50" offset-y>
         <template v-slot:activator="{ on }">
-          <div v-show="$route.path !== '/signin'" class="ml-4 mr-2 profile-image" v-on="on">
+          <div
+            v-show="$route.path !== '/signin' && $route.path !== '/eventlaunched'"
+            class="ml-4 mr-2 profile-image"
+            v-on="on"
+          >
             <span>J</span>
           </div>
         </template>
@@ -60,9 +64,17 @@
         </v-card>
       </v-menu>
     </v-app-bar>
+    <div class="progress--bar d-flex align-center">
+      <v-progress-linear color="#4fbf9f" v-model="progress"></v-progress-linear>
+      <router-link to="/eventlaunched">
+        <v-img src="@/assets/launch.png"></v-img>
+      </router-link>
+    </div>
     <v-content>
       <v-container class="fill-height" fluid>
-        <transition name="scrollY">
+        <transition
+          :name="$route.path == '/contacts' || $route.path == '/eventlaunched'? '': 'scrollY'"
+        >
           <router-view />
         </transition>
       </v-container>
@@ -85,6 +97,21 @@ export default {
       message: false,
       hints: true
     };
+  },
+  computed: {
+    progress() {
+      if (this.$route.path === "/") {
+        return 25;
+      } else if (this.$route.path == "/form") {
+        return 50;
+      } else if (this.$route.path == "/communication") {
+        return 75;
+      } else if (this.$route.path == "/contacts") {
+        return 100;
+      } else {
+        return 0;
+      }
+    }
   },
   methods: {
     handleSignOut() {
@@ -114,6 +141,14 @@ export default {
 .main-logo {
   cursor: pointer;
   color: white;
+}
+
+.progress--bar {
+  position: absolute !important;
+  width: 170px !important;
+  right: 50px;
+  bottom: 60px;
+  z-index: 5;
 }
 
 .page {
