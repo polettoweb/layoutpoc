@@ -72,7 +72,7 @@ export default {
       items: [
         { title: "Website", icon: "language", link: "/" },
         { title: "Form", icon: "playlist_add_check", link: "/form" },
-        { title: "Communication", icon: "mail", link: "/mail" },
+        { title: "Communication", icon: "mail", link: "/communication" },
         { title: "Contacts", icon: "account_box", link: "/contacts" }
       ],
       itemsBottom: [

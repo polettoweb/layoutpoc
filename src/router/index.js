@@ -17,16 +17,23 @@ const routes = [
     component: signin
   },
   {
-    path: "/layout2",
-    name: "layout2",
-    component: () =>
-      import(/* webpackChunkName: "layout2" */ "../views/layout2.vue")
+    path: "/form",
+    name: "form",
+    component: () => import(/* webpackChunkName: "form" */ "../views/form.vue")
   },
   {
-    path: "/layout3",
-    name: "layout3",
+    path: "/communication",
+    name: "communication",
     component: () =>
-      import(/* webpackChunkName: "layout3" */ "../views/layout3.vue")
+      import(
+        /* webpackChunkName: "communication" */ "../views/communication.vue"
+      )
+  },
+  {
+    path: "/contacts",
+    name: "contacts",
+    component: () =>
+      import(/* webpackChunkName: "contacts" */ "../views/contacts.vue")
   }
 ];
 
