@@ -184,9 +184,7 @@ export default {
   padding-top: 60px;
   z-index: 4;
 }
-/* .v-list-item--active {
-  color: black !important;
-} */
+
 .v-list-item {
   &:hover {
     &:before {
