@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app clipped permanent class="navigation-drawer">
+  <div>
     <template v-slot:prepend>
       <v-list-item>
         <img
@@ -62,7 +62,7 @@
         </v-list-item>
       </v-list>
     </template>
-  </v-navigation-drawer>
+  </div>
 </template>
 
 <script>

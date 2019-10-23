@@ -1,72 +1,97 @@
 <template>
   <v-app>
-    <Drawer v-if="$route.path !== '/signin' && $route.path !== '/eventlaunched'" />
+    <v-app-bar-nav-icon
+      class="ml-2 mt-2"
+      color="white"
+      style="z-index: 6"
+      @click="sideNav = !sideNav"
+    ></v-app-bar-nav-icon>
+    <v-navigation-drawer app clipped v-model="sideNav" class="navigation-drawer">
+      <template v-slot:prepend>
+        <v-list-item>
+          <img
+            width="48px"
+            height="48px"
+            class="mb-5"
+            src="https://randomuser.me/api/portraits/women/81.jpg"
+            style="border-radius: 50%"
+          />
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="title mb-3">
+              Robin Fransz
+              <v-icon class="ml-12 pl-6">arrow_drop_down</v-icon>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+      <v-divider></v-divider>
+
+      <v-list class="mt-7 mx-2" dense>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          tag="a"
+          @click="handleLink(item)"
+          color="info"
+          exact-active-class="active"
+          v-ripple="{ class: 'info--text' }"
+        >
+          <!--@click-->
+          <v-list-item-icon>
+            <v-icon width="18px">{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title class="subtitle-2">{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-divider></v-divider>
+      <v-list class="mb-12 mx-2">
+        <v-list-item>
+          <span class="body-2" color="secondary">Settings</span>
+        </v-list-item>
+        <v-list-item
+          v-for="item in itemsBottom"
+          :key="item.title"
+          tag="a"
+          @click.prevent="handleLink(item)"
+        >
+          <!--@click-->
+          <v-list-item-icon>
+            <v-icon width="18px">{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title class="subtitle-2">{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-app-bar app clipped-left color="accent">
-      <v-toolbar-title class="headline text-uppercase">
-        <router-link tag="span" to="/" class="main-logo">
-          <v-img src="@/assets/sm.svg" class="d-inline-flex mt-1" width="84px" height="62px"></v-img>
-        </router-link>
-      </v-toolbar-title>
       <v-spacer></v-spacer>
-      <span>
-        <v-icon>search</v-icon>
-      </span>
-
-      <v-menu v-model="menu" :close-on-content-click="false" :nudge-bottom="50" offset-y>
-        <template v-slot:activator="{ on }">
-          <div
-            v-show="$route.path !== '/signin' && $route.path !== '/eventlaunched'"
-            class="ml-4 mr-2 profile-image"
-            v-on="on"
-          >
-            <span>J</span>
-          </div>
-        </template>
-
-        <v-card width="280px">
-          <v-list>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="title my-n3">John Leider</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-
-          <v-divider class="mx-3"></v-divider>
-
-          <v-list>
-            <v-list-item>
-              <v-list-item-action>
-                <v-icon>message</v-icon>
-              </v-list-item-action>
-              <v-list-item-title>Messages</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-action>
-                <v-icon>assignment</v-icon>
-              </v-list-item-action>
-              <v-list-item-title>My Tasks</v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-action>
-                <v-icon>people</v-icon>
-              </v-list-item-action>
-              <v-list-item-title>Team</v-list-item-title>
-            </v-list-item>
-          </v-list>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <span class="primary--text body-2 mr-2" text @click="handleSignOut">Sign out</span>
-          </v-card-actions>
-        </v-card>
-      </v-menu>
+      <v-col cols="6">
+        <v-tabs class="ml-12" background-color="transparent" slider-color="black" fixed-tabs>
+          <v-tab>Workspace</v-tab>
+          <v-tab>Events</v-tab>
+          <v-tab>Contacts</v-tab>
+        </v-tabs>
+      </v-col>
+      <v-col cols="6"></v-col>
+      <template v-slot:extension>
+        <v-tabs class="ml-12" background-color="transparent" slider-color="black">
+          <v-tab to="/">Website</v-tab>
+          <v-tab to="/form">Forms</v-tab>
+          <v-tab to="/communication">E-mail</v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
     <div class="progress--bar d-flex align-center">
       <v-progress-linear color="#4fbf9f" v-model="progress"></v-progress-linear>
-      <router-link :to="$route.path == '/contacts' ? '/eventlaunched' : ''">
+      <router-link :to="$route.path == '/communication' ? '/eventlaunched' : ''">
         <v-img src="@/assets/launch.png"></v-img>
       </router-link>
     </div>
@@ -86,44 +111,72 @@
 // import Home from "./views/Home";
 
 export default {
-  name: "App",
-  components: {
-    Drawer: () => import("./components/Drawer")
-  },
+  name: 'App',
   data() {
     return {
       fav: true,
       menu: false,
       message: false,
-      hints: true
-    };
+      hints: true,
+      sideNav: false,
+      items: [
+        { title: 'Overview', icon: 'dashboard', link: 'Overview' },
+        { title: 'Messages', icon: 'message', link: 'Messages' },
+        { title: 'My Tasks', icon: 'assignment', link: 'My Tasks' },
+        { title: 'Team', icon: 'people', link: 'Team' },
+      ],
+      itemsBottom: [
+        { title: 'Main Settings', icon: 'settings', link: 'settings' },
+        { title: 'Notifications', icon: 'notifications', link: 'notification' },
+      ],
+    }
   },
   computed: {
     progress() {
-      if (this.$route.path === "/") {
-        return 25;
-      } else if (this.$route.path == "/form") {
-        return 50;
-      } else if (this.$route.path == "/communication") {
-        return 75;
-      } else if (this.$route.path == "/contacts") {
-        return 100;
+      if (this.$route.path === '/') {
+        return 25
+      } else if (this.$route.path == '/form') {
+        return 75
+      } else if (this.$route.path == '/communication') {
+        return 100
       } else {
-        return 0;
+        return 0
       }
-    }
+    },
   },
   methods: {
     handleSignOut() {
-      this.menu = false;
+      this.menu = false
       setTimeout(() => {
-        this.$router.push("/signin");
-      }, 300);
+        this.$router.push('/signin')
+      }, 300)
+    },
+    handleLink(item) {
+      alert(item.link)
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
+.navigation-drawer {
+  padding-top: 60px;
+  z-index: 4;
+}
+/* .v-list-item--active {
+  color: black !important;
+} */
+.v-list-item {
+  &:hover {
+    &:before {
+      background-color: #2196f3;
     }
   }
-};
-</script>
-<style lang="scss">
+}
+.active {
+  &:before {
+    background-color: #2196f3;
+  }
+}
 .profile-image {
   display: inline-block;
   width: 25px;
@@ -155,22 +208,6 @@ export default {
   position: fixed;
   width: inherit;
 }
-// .scrollY {
-//   transform: translateY(100%);
-// }
-
-// .scrollY-enter-active,
-// .scrollY-leave-ative {
-//   transition-property: all;
-//   transition-duration: 1s;
-//   transform: translateY(-100%);
-// }
-
-// .scrollY-enter,
-// .scrollY-leave-active {
-//   opacity: 0;
-//   transform: translateY(0);
-// }
 
 .scrollY-enter-active {
   animation: coming 1s;
@@ -182,6 +219,10 @@ export default {
   animation: going 1s;
 }
 
+.v-tab--active {
+  color: black !important;
+}
+
 @keyframes going {
   from {
     transform: translateY(0);
@@ -191,6 +232,7 @@ export default {
     opacity: 0;
   }
 }
+
 @keyframes coming {
   from {
     transform: translateY(100%);
