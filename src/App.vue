@@ -1,12 +1,19 @@
 <template>
   <v-app>
     <v-app-bar-nav-icon
+      v-if="$route.path !== '/signin' && $route.path !== '/eventlaunched'"
       class="ml-2 mt-2"
       color="white"
       style="z-index: 6"
       @click="sideNav = !sideNav"
     ></v-app-bar-nav-icon>
-    <v-navigation-drawer app clipped v-model="sideNav" class="navigation-drawer">
+    <v-navigation-drawer
+      v-if="$route.path !== '/signin' && $route.path !== '/eventlaunched'"
+      app
+      clipped
+      v-model="sideNav"
+      class="navigation-drawer"
+    >
       <template v-slot:prepend>
         <v-list-item>
           <img
@@ -70,8 +77,20 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template slot:append>
+        <v-list class="mx-2">
+          <v-list-item>
+            <span class="body-2" color="secondary" @click="handleSignOut()">Signout</span>
+          </v-list-item>
+        </v-list>
+      </template>
     </v-navigation-drawer>
-    <v-app-bar app clipped-left color="accent">
+    <v-app-bar
+      v-if="$route.path !== '/signin' && $route.path !== '/eventlaunched'"
+      app
+      clipped-left
+      color="accent"
+    >
       <v-spacer></v-spacer>
       <v-col cols="6">
         <v-tabs class="ml-12" background-color="transparent" slider-color="black" fixed-tabs>
@@ -89,7 +108,10 @@
         </v-tabs>
       </template>
     </v-app-bar>
-    <div class="progress--bar d-flex align-center">
+    <div
+      v-if="$route.path !== '/signin' && $route.path !== '/eventlaunched'"
+      class="progress--bar d-flex align-center"
+    >
       <v-progress-linear color="#4fbf9f" v-model="progress"></v-progress-linear>
       <router-link :to="$route.path == '/communication' ? '/eventlaunched' : ''">
         <v-img src="@/assets/launch.png"></v-img>
